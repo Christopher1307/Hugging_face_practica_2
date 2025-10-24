@@ -6,8 +6,13 @@ from transformers import pipeline
 asr = pipeline(task="automatic-speech-recognition", model="openai/whisper-small",device="cuda" if torch.cuda.is_available() else "cpu")
 audio_a_texto = None
 
+# Resumen
+summarizer = pipeline("summarization")
+
+
 # Traductor
-pipe = pipeline("translation", model="Helsinki-NLP/opus-mt-en-es")
+translator = pipeline("translation", model="Helsinki-NLP/opus-mt-en-es")
+
 
 
 def transcribe(audio):
@@ -19,12 +24,16 @@ def transcribe(audio):
 
     audio_a_texto = asr(audio)["text"]
 
+    # Resumen
+    resumen = summarizer(audio_a_texto,max_length=4)[0]["summary_text"]
+
     # Traductor
+    traduccion = translator(resumen)[0]["translation_text"]
 
-    resultado = pipe(audio_a_texto)
 
 
-    return resultado
+
+    return traduccion
 
 gr.Interface(
     fn=transcribe,
