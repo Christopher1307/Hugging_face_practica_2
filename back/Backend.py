@@ -23,9 +23,10 @@ def transcribe(audio):
         return "Por favor, sube un archivo de audio."
 
     audio_a_texto = asr(audio)["text"]
+    print(audio_a_texto)
 
     # Resumen
-    resumen = summarizer(audio_a_texto,max_length=4)[0]["summary_text"]
+    resumen = summarizer(audio_a_texto,min_length = 10,max_length=50)[0]["summary_text"]
 
     # Traductor
     traduccion = translator(resumen)[0]["translation_text"]
