@@ -1,0 +1,9 @@
+gradio==5.49.1
+transformers==4.45.1
+torch==2.4.1
+sentencepiece==0.2.0
+ffmpy==0.3.2
+pydub==0.25.1
+numpy>=1.26.0
+pandas>=2.2.0
+jinja2>=3.1.3
